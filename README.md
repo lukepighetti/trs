@@ -1,2 +1,3 @@
-A sample command-line application with an entrypoint in `bin/`, library code
-in `lib/`, and example unit test in `test/`.
+# trs
+
+A server that updates a Twitter profile when the owner goes live on Twitch
