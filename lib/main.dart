@@ -1,5 +1,6 @@
 import 'package:args/command_runner.dart';
 
+import 'auth_command.dart';
 import 'serve_command.dart';
 
 Future<void> main(List<String> arguments) async {
@@ -8,6 +9,7 @@ Future<void> main(List<String> arguments) async {
     "A server that updates a Twitter profile when live on Twitch",
   )
     ..addCommand(ServeCommand())
+    ..addCommand(AuthCommand())
     ..run(arguments);
 }
 
