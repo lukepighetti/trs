@@ -1,28 +1,8 @@
-import 'package:args/args.dart';
+import 'cli_args.dart';
 
 void main(List<String> arguments) {
-  final parser = ArgParser()
-    ..addFlag(
-      'help',
-      abbr: 'h',
-      negatable: false,
-      help: 'Display this help message',
-    )
-    ..addOption(
-      'port',
-      abbr: 'p',
-      help: 'The port to listen on',
-      defaultsTo: '8080',
-    );
-
-  final args = parser.parse(arguments);
-  final needsHelp = args['help'];
-  final port = int.tryParse(args['port']);
-
-  if (needsHelp) {
-    print(parser.usage);
-    return;
-  }
+  final args = CliArgs(arguments)..parse();
+  final port = args.port;
 
   print('Starting server on port $port');
 }
