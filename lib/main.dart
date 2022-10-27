@@ -1,10 +1,14 @@
-import 'cli_args.dart';
+import 'package:args/command_runner.dart';
 
-void main(List<String> arguments) {
-  final args = CliArgs(arguments)..parse();
-  final port = args.port;
+import 'serve_command.dart';
 
-  print('Starting server on port $port');
+Future<void> main(List<String> arguments) async {
+  CommandRunner(
+    "tls",
+    "A server that updates a Twitter profile when live on Twitch",
+  )
+    ..addCommand(ServeCommand())
+    ..run(arguments);
 }
 
 // Setup webhook listener
