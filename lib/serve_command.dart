@@ -34,7 +34,30 @@ class ServeCommand extends Command {
   Future<void> run() async {
     final app = Router();
 
+    app.get('/', (_) {
+      return Response.ok('OK');
+    });
+
     app.get('/health', (_) {
+      return Response.ok('OK');
+    });
+
+    app.get('/auth/twitch', (Request req) {
+      final queryParams = req.requestedUri.queryParameters;
+      final code = queryParams['code'] ?? '';
+      final scope = queryParams['scope'] ?? '';
+      final state = queryParams['state'] ?? '';
+      final error = queryParams['error'] ?? '';
+      final errorDescription = queryParams['error_description'] ?? '';
+
+      assert((code.isNotEmpty && scope.isNotEmpty) ||
+          (error.isNotEmpty && errorDescription.isNotEmpty));
+      assert(state.isNotEmpty); // TODO: cache state for verification
+
+      final isError = error.isNotEmpty;
+      if (isError) return Response.internalServerError();
+
+      print('Authenticating code $code for scope $scope and state $state');
       return Response.ok('OK');
     });
 

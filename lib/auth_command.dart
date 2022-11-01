@@ -1,4 +1,6 @@
-import 'package:args/command_runner.dart';
+import "package:args/command_runner.dart";
+import 'package:uuid/uuid.dart';
+import 'package:uuid/uuid_util.dart';
 
 class AuthCommand extends Command {
   AuthCommand() {
@@ -15,8 +17,23 @@ class AuthCommand extends Command {
 
 class _TwitchAuthCommand extends Command {
   _TwitchAuthCommand() {
-    //
+    argParser
+      ..addOption(
+        "client-id",
+        abbr: "i",
+        help: "Your Twitch ClientID from https://dev.twitch.tv",
+        mandatory: true,
+      )
+      ..addOption(
+        "redirect-uri",
+        abbr: "r",
+        help: "The redirect URI to use for auth",
+        defaultsTo: "http://localhost",
+      );
   }
+
+  String get clientId => argResults?["client-id"];
+  Uri get redirectUri => Uri.parse(argResults?["redirect-uri"]);
 
   @override
   String get name => "twitch";
@@ -26,7 +43,17 @@ class _TwitchAuthCommand extends Command {
 
   @override
   Future<void> run() async {
-    //
+    UuidUtil.cryptoRNG();
+    final state = Uuid(options: {'grng': UuidUtil.cryptoRNG}).v4();
+
+    final authUrl = "https://id.twitch.tv/oauth2/authorize"
+        "?client_id=$clientId"
+        "&redirect_uri=$redirectUri"
+        "&response_type=code"
+        "&scope=user:read:broadcast"
+        "&state=$state";
+    print('Click this link to authenticate $authUrl');
+    // print("Trying to authenticate with client-id $clientId");
   }
 }
 

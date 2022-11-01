@@ -1,4 +1,6 @@
 version: '3'
 
 tasks:
-  serve: dart lib/main.dart --port 8080
+  serve: dart lib/main.dart serve --host 0.0.0.0 --port 8000
+  tunnel: tunnelto -p 8000 -s trs
+  watch: npx -y nodemon -w lib -e 'dart' -x 'task serve'

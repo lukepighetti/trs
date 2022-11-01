@@ -14,8 +14,12 @@ Future<void> main(List<String> arguments) async {
 }
 
 // Setup webhook listener
+//
 // Register Twitch live status webhook
+// https://dev.twitch.tv/docs/eventsub/manage-subscriptions
+//
 // Setup Twitch live status poller
+// https://dev.twitch.tv/docs/api/reference#get-streams
 //
 // On live:
 //  - Set Twitter name to {{ "LIVE NOW 🔴 – " + display_name }}
