@@ -1,7 +1,13 @@
+import 'dart:convert';
+
 import 'package:args/command_runner.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as io;
 import 'package:shelf_router/shelf_router.dart';
+import 'package:http/http.dart' as http;
+
+import 'database.dart';
+import 'environment.dart';
 
 class ServeCommand extends Command {
   ServeCommand() {
@@ -42,7 +48,7 @@ class ServeCommand extends Command {
       return Response.ok('OK');
     });
 
-    app.get('/auth/twitch', (Request req) {
+    app.get('/auth/twitch', (Request req) async {
       final queryParams = req.requestedUri.queryParameters;
       final code = queryParams['code'] ?? '';
       final scope = queryParams['scope'] ?? '';
@@ -57,7 +63,26 @@ class ServeCommand extends Command {
       final isError = error.isNotEmpty;
       if (isError) return Response.internalServerError();
 
+      final clientId = Environment.twitchClientId;
+      final clientSecret = Environment.twitchClientSecret;
+      final redirectUri = Environment.twitchRedirectUri;
+
+      final res = await http.post(Uri.parse(
+        'https://id.twitch.tv/oauth2/token'
+        '?client_id=$clientId'
+        '&client_secret=$clientSecret'
+        '&code=$code'
+        '&grant_type=authorization_code'
+        '&redirect_uri=$redirectUri',
+      ));
+
+      final json = jsonDecode(res.body);
+      final accessToken = json['access_token'];
+      db.twitchAccessTokens[accessToken] = json;
+      db.save();
+
       print('Authenticating code $code for scope $scope and state $state');
+
       return Response.ok('OK');
     });
 
