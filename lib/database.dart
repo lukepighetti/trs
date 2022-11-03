@@ -16,7 +16,7 @@ class JsonDatabase with MapMixin<String, dynamic> {
 
   Map<String, dynamic> _init() {
     if (!_file.existsSync()) {
-      _file.createSync();
+      _file.createSync(recursive: true);
       _file.writeAsStringSync('{}');
     }
 
@@ -37,7 +37,7 @@ class JsonDatabase with MapMixin<String, dynamic> {
   @override
   void clear() {
     _store.clear();
-    _file.writeAsStringSync('{}');
+    save();
   }
 
   @override

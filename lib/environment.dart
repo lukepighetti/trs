@@ -1,8 +1,9 @@
-import 'dart:io';
+import 'package:dotenv/dotenv.dart';
+
+final _env = DotEnv(includePlatformEnvironment: true)..load();
 
 class Environment {
-  static final twitchClientId = Platform.environment['TWITCH_CLIENT_ID'];
-  static final twitchClientSecret =
-      Platform.environment['TWITCH_CLIENT_SECRET'];
-  static final twitchRedirectUri = Platform.environment['TWITCH_REDIRECT_URI'];
+  static final twitchClientId = _env['TWITCH_CLIENT_ID'];
+  static final twitchClientSecret = _env['TWITCH_CLIENT_SECRET'];
+  static final twitchRedirectUri = _env['TWITCH_REDIRECT_URI'];
 }

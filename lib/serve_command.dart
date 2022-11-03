@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 
 import 'database.dart';
 import 'environment.dart';
+import 'utils.dart';
 
 class ServeCommand extends Command {
   ServeCommand() {
@@ -56,16 +57,21 @@ class ServeCommand extends Command {
       final error = queryParams['error'] ?? '';
       final errorDescription = queryParams['error_description'] ?? '';
 
-      assert((code.isNotEmpty && scope.isNotEmpty) ||
+      cliAssert((code.isNotEmpty && scope.isNotEmpty) ||
           (error.isNotEmpty && errorDescription.isNotEmpty));
-      assert(state.isNotEmpty); // TODO: cache state for verification
+      cliAssert(state.isNotEmpty); // TODO: cache state for verification
 
       final isError = error.isNotEmpty;
       if (isError) return Response.internalServerError();
 
-      final clientId = Environment.twitchClientId;
-      final clientSecret = Environment.twitchClientSecret;
-      final redirectUri = Environment.twitchRedirectUri;
+      final clientId = Environment.twitchClientId ?? '';
+      final clientSecret = Environment.twitchClientSecret ?? '';
+      final redirectUri = Environment.twitchRedirectUri ?? '';
+      cliAssert(clientId.isNotEmpty, 'clientId is empty');
+      cliAssert(clientSecret.isNotEmpty, 'clientSecret is empty');
+      cliAssert(redirectUri.isNotEmpty, 'redirectUri is empty');
+
+      print('Client secret ${clientSecret.substring(5)}x');
 
       final res = await http.post(Uri.parse(
         'https://id.twitch.tv/oauth2/token'
@@ -75,9 +81,15 @@ class ServeCommand extends Command {
         '&grant_type=authorization_code'
         '&redirect_uri=$redirectUri',
       ));
-
       final json = jsonDecode(res.body);
+      print(json);
       final accessToken = json['access_token'];
+
+      json['expires_on'] = DateTime.now()
+          .add(Duration(seconds: json['expires_in']))
+          .toUtc()
+          .toIso8601String();
+
       db.twitchAccessTokens[accessToken] = json;
       db.save();
 

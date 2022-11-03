@@ -2,6 +2,8 @@ import "package:args/command_runner.dart";
 import 'package:uuid/uuid.dart';
 import 'package:uuid/uuid_util.dart';
 
+import 'environment.dart';
+
 class AuthCommand extends Command {
   AuthCommand() {
     addSubcommand(_TwitchAuthCommand());
@@ -21,19 +23,20 @@ class _TwitchAuthCommand extends Command {
       ..addOption(
         "client-id",
         abbr: "i",
-        help: "Your Twitch ClientID from https://dev.twitch.tv",
-        mandatory: true,
+        help: "Your Twitch ClientID from https://dev.twitch.tv, "
+            "fallsback to environment variable TWITCH_CLIENT_ID",
       )
       ..addOption(
         "redirect-uri",
         abbr: "r",
-        help: "The redirect URI to use for auth",
-        defaultsTo: "http://localhost",
+        help: "The redirect URI to use for auth"
+            "falls back to environment variable TWITCH_REDIRECT_URI",
       );
   }
 
-  String get clientId => argResults?["client-id"];
-  Uri get redirectUri => Uri.parse(argResults?["redirect-uri"]);
+  late final clientId = argResults?["client-id"] ?? Environment.twitchClientId;
+  late final redirectUri =
+      Uri.parse(argResults?["redirect-uri"] ?? Environment.twitchRedirectUri);
 
   @override
   String get name => "twitch";
