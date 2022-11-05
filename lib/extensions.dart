@@ -1,3 +1,7 @@
+extension LetX<T> on T {
+  K let<K>(K Function(T it) fn) => fn(this);
+}
+
 extension NullableStringX on String? {
   bool get isNotNullOrEmpty => this != null && this!.isNotEmpty;
 }

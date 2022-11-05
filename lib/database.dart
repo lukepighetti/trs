@@ -2,15 +2,56 @@ import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
 
+import 'twitch_client.dart';
+
 final db = JsonDatabase();
 
 extension JsonDatabaseMaps on JsonDatabase {
-  Map<String, dynamic> get twitchAccessTokens {
-    return db['twitch-access-tokens'] ??= <String, dynamic>{};
+  Map<String, TwitchAccessToken> get twitchAccessTokens {
+    const key = 'twitch-access-tokens';
+    db[key] ??= <String, dynamic>{};
+    return TypedMapView<TwitchAccessToken>(
+        db[key], TwitchAccessToken.fromJson, (v) => v.toJson());
   }
 
-  Map<String, dynamic> get twitchUserInfo {
-    return db['twitch-user-info'] ??= <String, dynamic>{};
+  Map<String, TwitchUserInfo> get twitchUserInfo {
+    const key = 'twitch-user-info';
+    db[key] ??= <String, dynamic>{};
+    return TypedMapView<TwitchUserInfo>(
+        db[key], TwitchUserInfo.fromJson, (v) => v.toJson());
+  }
+}
+
+class TypedMapView<V> with MapMixin<String, V> {
+  TypedMapView(this.ref, this.from, this.to);
+
+  final V Function(Map<String, dynamic> json) from;
+
+  final Map<String, dynamic> Function(V value) to;
+
+  final Map<String, dynamic> ref;
+
+  @override
+  V? operator [](Object? key) {
+    return ref[key]?.let(from);
+  }
+
+  @override
+  void operator []=(String key, V value) {
+    ref[key] = to(value);
+  }
+
+  @override
+  void clear() {
+    ref.clear();
+  }
+
+  @override
+  Iterable<String> get keys => ref.keys;
+
+  @override
+  V? remove(Object? key) {
+    return ref.remove(key)?.let(from);
   }
 }
 

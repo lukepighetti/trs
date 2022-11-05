@@ -83,8 +83,8 @@ Future<TwitchFinalizedAuth> postFinalizedAuth(String code) async {
   final userInfo = await getUserFromToken(accessToken.accessToken);
 
   db.setState((db) {
-    db.twitchAccessTokens[userInfo.id] = accessToken.toJson();
-    db.twitchUserInfo[userInfo.id] = userInfo.toJson();
+    db.twitchAccessTokens[userInfo.id] = accessToken;
+    db.twitchUserInfo[userInfo.id] = userInfo;
   });
 
   return TwitchFinalizedAuth(accessToken, userInfo);
@@ -137,7 +137,7 @@ Future<TwitchUserInfo> getUserFromToken(String accessToken) async {
   final userInfo = TwitchUserInfo.fromJson(json);
 
   db.setState((db) {
-    db.twitchUserInfo[userInfo.id] = userInfo.toJson();
+    db.twitchUserInfo[userInfo.id] = userInfo;
   });
 
   return userInfo;
