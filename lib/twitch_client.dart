@@ -29,25 +29,19 @@ Uri getAuthUri(String clientId, Uri redirectUri) {
   );
 }
 
-@JsonSerializable(fieldRename: FieldRename.snake)
-class TwitchAuthQueryParams {
-  TwitchAuthQueryParams(
-    this.code,
-    this.scope,
-    this.state,
-    this.error,
-    this.errorDescription,
-  );
-
-  final String? code;
-  final String? scope;
-  final String? state;
-  final String? error;
-  final String? errorDescription;
+@freezed
+class TwitchAuthQueryParams with _$TwitchAuthQueryParams {
+  @JsonSerializable(fieldRename: FieldRename.snake)
+  const factory TwitchAuthQueryParams(
+    String? code,
+    String? scope,
+    String? state,
+    String? error,
+    String? errorDescription,
+  ) = _TwitchAuthQueryParams;
 
   factory TwitchAuthQueryParams.fromJson(Map<String, dynamic> json) =>
       _$TwitchAuthQueryParamsFromJson(json);
-  Map<String, dynamic> toJson() => _$TwitchAuthQueryParamsToJson(this);
 }
 
 TwitchAuthQueryParams parseAuthRequest(shelf.Request request) {
@@ -96,31 +90,19 @@ class TwitchFinalizedAuth {
   final TwitchUserInfo userInfo;
 }
 
-@JsonSerializable(fieldRename: FieldRename.snake)
-class TwitchAccessToken {
-  TwitchAccessToken(
-    this.accessToken,
-    this.expiresIn,
-    this.refreshToken,
-    this.scope,
-    this.tokenType,
-  );
-
-  final String accessToken;
-  final Duration expiresIn;
-  final String refreshToken;
-  final List<String> scope;
-  final String tokenType;
-
-  // late final expiresOn = DateTime.now()
-  //     .add(expiresIn)
-  //     .subtract(Duration(minutes: 1))
-  //     .toUtc()
-  //     .toIso8601String();
+@freezed
+class TwitchAccessToken with _$TwitchAccessToken {
+  @JsonSerializable(fieldRename: FieldRename.snake)
+  const factory TwitchAccessToken(
+    String accessToken,
+    Duration expiresIn,
+    String refreshToken,
+    List<String> scope,
+    String tokenType,
+  ) = _TwitchAccessToken;
 
   factory TwitchAccessToken.fromJson(Map<String, dynamic> json) =>
       _$TwitchAccessTokenFromJson(json);
-  Map<String, dynamic> toJson() => _$TwitchAccessTokenToJson(this);
 }
 
 Future<TwitchUserInfo> getUserFromToken(String accessToken) async {

@@ -14,6 +14,457 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+TwitchAuthQueryParams _$TwitchAuthQueryParamsFromJson(
+    Map<String, dynamic> json) {
+  return _TwitchAuthQueryParams.fromJson(json);
+}
+
+/// @nodoc
+mixin _$TwitchAuthQueryParams {
+  String? get code => throw _privateConstructorUsedError;
+  String? get scope => throw _privateConstructorUsedError;
+  String? get state => throw _privateConstructorUsedError;
+  String? get error => throw _privateConstructorUsedError;
+  String? get errorDescription => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $TwitchAuthQueryParamsCopyWith<TwitchAuthQueryParams> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $TwitchAuthQueryParamsCopyWith<$Res> {
+  factory $TwitchAuthQueryParamsCopyWith(TwitchAuthQueryParams value,
+          $Res Function(TwitchAuthQueryParams) then) =
+      _$TwitchAuthQueryParamsCopyWithImpl<$Res, TwitchAuthQueryParams>;
+  @useResult
+  $Res call(
+      {String? code,
+      String? scope,
+      String? state,
+      String? error,
+      String? errorDescription});
+}
+
+/// @nodoc
+class _$TwitchAuthQueryParamsCopyWithImpl<$Res,
+        $Val extends TwitchAuthQueryParams>
+    implements $TwitchAuthQueryParamsCopyWith<$Res> {
+  _$TwitchAuthQueryParamsCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? code = freezed,
+    Object? scope = freezed,
+    Object? state = freezed,
+    Object? error = freezed,
+    Object? errorDescription = freezed,
+  }) {
+    return _then(_value.copyWith(
+      code: freezed == code
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
+              as String?,
+      scope: freezed == scope
+          ? _value.scope
+          : scope // ignore: cast_nullable_to_non_nullable
+              as String?,
+      state: freezed == state
+          ? _value.state
+          : state // ignore: cast_nullable_to_non_nullable
+              as String?,
+      error: freezed == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+      errorDescription: freezed == errorDescription
+          ? _value.errorDescription
+          : errorDescription // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_TwitchAuthQueryParamsCopyWith<$Res>
+    implements $TwitchAuthQueryParamsCopyWith<$Res> {
+  factory _$$_TwitchAuthQueryParamsCopyWith(_$_TwitchAuthQueryParams value,
+          $Res Function(_$_TwitchAuthQueryParams) then) =
+      __$$_TwitchAuthQueryParamsCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {String? code,
+      String? scope,
+      String? state,
+      String? error,
+      String? errorDescription});
+}
+
+/// @nodoc
+class __$$_TwitchAuthQueryParamsCopyWithImpl<$Res>
+    extends _$TwitchAuthQueryParamsCopyWithImpl<$Res, _$_TwitchAuthQueryParams>
+    implements _$$_TwitchAuthQueryParamsCopyWith<$Res> {
+  __$$_TwitchAuthQueryParamsCopyWithImpl(_$_TwitchAuthQueryParams _value,
+      $Res Function(_$_TwitchAuthQueryParams) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? code = freezed,
+    Object? scope = freezed,
+    Object? state = freezed,
+    Object? error = freezed,
+    Object? errorDescription = freezed,
+  }) {
+    return _then(_$_TwitchAuthQueryParams(
+      freezed == code
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
+              as String?,
+      freezed == scope
+          ? _value.scope
+          : scope // ignore: cast_nullable_to_non_nullable
+              as String?,
+      freezed == state
+          ? _value.state
+          : state // ignore: cast_nullable_to_non_nullable
+              as String?,
+      freezed == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+      freezed == errorDescription
+          ? _value.errorDescription
+          : errorDescription // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class _$_TwitchAuthQueryParams implements _TwitchAuthQueryParams {
+  const _$_TwitchAuthQueryParams(
+      this.code, this.scope, this.state, this.error, this.errorDescription);
+
+  factory _$_TwitchAuthQueryParams.fromJson(Map<String, dynamic> json) =>
+      _$$_TwitchAuthQueryParamsFromJson(json);
+
+  @override
+  final String? code;
+  @override
+  final String? scope;
+  @override
+  final String? state;
+  @override
+  final String? error;
+  @override
+  final String? errorDescription;
+
+  @override
+  String toString() {
+    return 'TwitchAuthQueryParams(code: $code, scope: $scope, state: $state, error: $error, errorDescription: $errorDescription)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_TwitchAuthQueryParams &&
+            (identical(other.code, code) || other.code == code) &&
+            (identical(other.scope, scope) || other.scope == scope) &&
+            (identical(other.state, state) || other.state == state) &&
+            (identical(other.error, error) || other.error == error) &&
+            (identical(other.errorDescription, errorDescription) ||
+                other.errorDescription == errorDescription));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, code, scope, state, error, errorDescription);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_TwitchAuthQueryParamsCopyWith<_$_TwitchAuthQueryParams> get copyWith =>
+      __$$_TwitchAuthQueryParamsCopyWithImpl<_$_TwitchAuthQueryParams>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_TwitchAuthQueryParamsToJson(
+      this,
+    );
+  }
+}
+
+abstract class _TwitchAuthQueryParams implements TwitchAuthQueryParams {
+  const factory _TwitchAuthQueryParams(
+      final String? code,
+      final String? scope,
+      final String? state,
+      final String? error,
+      final String? errorDescription) = _$_TwitchAuthQueryParams;
+
+  factory _TwitchAuthQueryParams.fromJson(Map<String, dynamic> json) =
+      _$_TwitchAuthQueryParams.fromJson;
+
+  @override
+  String? get code;
+  @override
+  String? get scope;
+  @override
+  String? get state;
+  @override
+  String? get error;
+  @override
+  String? get errorDescription;
+  @override
+  @JsonKey(ignore: true)
+  _$$_TwitchAuthQueryParamsCopyWith<_$_TwitchAuthQueryParams> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+TwitchAccessToken _$TwitchAccessTokenFromJson(Map<String, dynamic> json) {
+  return _TwitchAccessToken.fromJson(json);
+}
+
+/// @nodoc
+mixin _$TwitchAccessToken {
+  String get accessToken => throw _privateConstructorUsedError;
+  Duration get expiresIn => throw _privateConstructorUsedError;
+  String get refreshToken => throw _privateConstructorUsedError;
+  List<String> get scope => throw _privateConstructorUsedError;
+  String get tokenType => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $TwitchAccessTokenCopyWith<TwitchAccessToken> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $TwitchAccessTokenCopyWith<$Res> {
+  factory $TwitchAccessTokenCopyWith(
+          TwitchAccessToken value, $Res Function(TwitchAccessToken) then) =
+      _$TwitchAccessTokenCopyWithImpl<$Res, TwitchAccessToken>;
+  @useResult
+  $Res call(
+      {String accessToken,
+      Duration expiresIn,
+      String refreshToken,
+      List<String> scope,
+      String tokenType});
+}
+
+/// @nodoc
+class _$TwitchAccessTokenCopyWithImpl<$Res, $Val extends TwitchAccessToken>
+    implements $TwitchAccessTokenCopyWith<$Res> {
+  _$TwitchAccessTokenCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? accessToken = null,
+    Object? expiresIn = null,
+    Object? refreshToken = null,
+    Object? scope = null,
+    Object? tokenType = null,
+  }) {
+    return _then(_value.copyWith(
+      accessToken: null == accessToken
+          ? _value.accessToken
+          : accessToken // ignore: cast_nullable_to_non_nullable
+              as String,
+      expiresIn: null == expiresIn
+          ? _value.expiresIn
+          : expiresIn // ignore: cast_nullable_to_non_nullable
+              as Duration,
+      refreshToken: null == refreshToken
+          ? _value.refreshToken
+          : refreshToken // ignore: cast_nullable_to_non_nullable
+              as String,
+      scope: null == scope
+          ? _value.scope
+          : scope // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      tokenType: null == tokenType
+          ? _value.tokenType
+          : tokenType // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_TwitchAccessTokenCopyWith<$Res>
+    implements $TwitchAccessTokenCopyWith<$Res> {
+  factory _$$_TwitchAccessTokenCopyWith(_$_TwitchAccessToken value,
+          $Res Function(_$_TwitchAccessToken) then) =
+      __$$_TwitchAccessTokenCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {String accessToken,
+      Duration expiresIn,
+      String refreshToken,
+      List<String> scope,
+      String tokenType});
+}
+
+/// @nodoc
+class __$$_TwitchAccessTokenCopyWithImpl<$Res>
+    extends _$TwitchAccessTokenCopyWithImpl<$Res, _$_TwitchAccessToken>
+    implements _$$_TwitchAccessTokenCopyWith<$Res> {
+  __$$_TwitchAccessTokenCopyWithImpl(
+      _$_TwitchAccessToken _value, $Res Function(_$_TwitchAccessToken) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? accessToken = null,
+    Object? expiresIn = null,
+    Object? refreshToken = null,
+    Object? scope = null,
+    Object? tokenType = null,
+  }) {
+    return _then(_$_TwitchAccessToken(
+      null == accessToken
+          ? _value.accessToken
+          : accessToken // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == expiresIn
+          ? _value.expiresIn
+          : expiresIn // ignore: cast_nullable_to_non_nullable
+              as Duration,
+      null == refreshToken
+          ? _value.refreshToken
+          : refreshToken // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == scope
+          ? _value._scope
+          : scope // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      null == tokenType
+          ? _value.tokenType
+          : tokenType // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class _$_TwitchAccessToken implements _TwitchAccessToken {
+  const _$_TwitchAccessToken(this.accessToken, this.expiresIn,
+      this.refreshToken, final List<String> scope, this.tokenType)
+      : _scope = scope;
+
+  factory _$_TwitchAccessToken.fromJson(Map<String, dynamic> json) =>
+      _$$_TwitchAccessTokenFromJson(json);
+
+  @override
+  final String accessToken;
+  @override
+  final Duration expiresIn;
+  @override
+  final String refreshToken;
+  final List<String> _scope;
+  @override
+  List<String> get scope {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_scope);
+  }
+
+  @override
+  final String tokenType;
+
+  @override
+  String toString() {
+    return 'TwitchAccessToken(accessToken: $accessToken, expiresIn: $expiresIn, refreshToken: $refreshToken, scope: $scope, tokenType: $tokenType)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_TwitchAccessToken &&
+            (identical(other.accessToken, accessToken) ||
+                other.accessToken == accessToken) &&
+            (identical(other.expiresIn, expiresIn) ||
+                other.expiresIn == expiresIn) &&
+            (identical(other.refreshToken, refreshToken) ||
+                other.refreshToken == refreshToken) &&
+            const DeepCollectionEquality().equals(other._scope, _scope) &&
+            (identical(other.tokenType, tokenType) ||
+                other.tokenType == tokenType));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, accessToken, expiresIn,
+      refreshToken, const DeepCollectionEquality().hash(_scope), tokenType);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_TwitchAccessTokenCopyWith<_$_TwitchAccessToken> get copyWith =>
+      __$$_TwitchAccessTokenCopyWithImpl<_$_TwitchAccessToken>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_TwitchAccessTokenToJson(
+      this,
+    );
+  }
+}
+
+abstract class _TwitchAccessToken implements TwitchAccessToken {
+  const factory _TwitchAccessToken(
+      final String accessToken,
+      final Duration expiresIn,
+      final String refreshToken,
+      final List<String> scope,
+      final String tokenType) = _$_TwitchAccessToken;
+
+  factory _TwitchAccessToken.fromJson(Map<String, dynamic> json) =
+      _$_TwitchAccessToken.fromJson;
+
+  @override
+  String get accessToken;
+  @override
+  Duration get expiresIn;
+  @override
+  String get refreshToken;
+  @override
+  List<String> get scope;
+  @override
+  String get tokenType;
+  @override
+  @JsonKey(ignore: true)
+  _$$_TwitchAccessTokenCopyWith<_$_TwitchAccessToken> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
 TwitchUserInfo _$TwitchUserInfoFromJson(Map<String, dynamic> json) {
   return _TwitchUserInfo.fromJson(json);
 }

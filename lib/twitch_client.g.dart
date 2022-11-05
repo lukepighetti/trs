@@ -6,9 +6,9 @@ part of 'twitch_client.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-TwitchAuthQueryParams _$TwitchAuthQueryParamsFromJson(
+_$_TwitchAuthQueryParams _$$_TwitchAuthQueryParamsFromJson(
         Map<String, dynamic> json) =>
-    TwitchAuthQueryParams(
+    _$_TwitchAuthQueryParams(
       json['code'] as String?,
       json['scope'] as String?,
       json['state'] as String?,
@@ -16,8 +16,8 @@ TwitchAuthQueryParams _$TwitchAuthQueryParamsFromJson(
       json['error_description'] as String?,
     );
 
-Map<String, dynamic> _$TwitchAuthQueryParamsToJson(
-        TwitchAuthQueryParams instance) =>
+Map<String, dynamic> _$$_TwitchAuthQueryParamsToJson(
+        _$_TwitchAuthQueryParams instance) =>
     <String, dynamic>{
       'code': instance.code,
       'scope': instance.scope,
@@ -26,8 +26,8 @@ Map<String, dynamic> _$TwitchAuthQueryParamsToJson(
       'error_description': instance.errorDescription,
     };
 
-TwitchAccessToken _$TwitchAccessTokenFromJson(Map<String, dynamic> json) =>
-    TwitchAccessToken(
+_$_TwitchAccessToken _$$_TwitchAccessTokenFromJson(Map<String, dynamic> json) =>
+    _$_TwitchAccessToken(
       json['access_token'] as String,
       Duration(microseconds: json['expires_in'] as int),
       json['refresh_token'] as String,
@@ -35,7 +35,8 @@ TwitchAccessToken _$TwitchAccessTokenFromJson(Map<String, dynamic> json) =>
       json['token_type'] as String,
     );
 
-Map<String, dynamic> _$TwitchAccessTokenToJson(TwitchAccessToken instance) =>
+Map<String, dynamic> _$$_TwitchAccessTokenToJson(
+        _$_TwitchAccessToken instance) =>
     <String, dynamic>{
       'access_token': instance.accessToken,
       'expires_in': instance.expiresIn.inMicroseconds,
