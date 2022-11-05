@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_annotation_target
+
 import 'dart:convert';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -75,17 +77,17 @@ Future<TwitchFinalizedAuth> postFinalizedAuth(String code) async {
     '&redirect_uri=$redirectUri',
   ));
   final json = jsonDecode(authTokenResponse.body);
-  final accessTokend = TwitchAccessToken.fromJson(json);
-  cliAssert(accessTokend.accessToken.isNotNullOrEmpty, "accessToken is empty");
+  final accessToken = TwitchAccessToken.fromJson(json);
+  cliAssert(accessToken.accessToken.isNotNullOrEmpty, "accessToken is empty");
 
-  final userInfo = await getUserFromToken(accessTokend.accessToken);
+  final userInfo = await getUserFromToken(accessToken.accessToken);
 
   db.setState((db) {
-    db.twitchAccessTokens[userInfo.id] = accessTokend.toJson();
+    db.twitchAccessTokens[userInfo.id] = accessToken.toJson();
     db.twitchUserInfo[userInfo.id] = userInfo.toJson();
   });
 
-  return TwitchFinalizedAuth(accessTokend, userInfo);
+  return TwitchFinalizedAuth(accessToken, userInfo);
 }
 
 class TwitchFinalizedAuth {
@@ -143,7 +145,6 @@ Future<TwitchUserInfo> getUserFromToken(String accessToken) async {
 
 @freezed
 class TwitchUserInfo with _$TwitchUserInfo {
-  // ignore: invalid_annotation_target
   @JsonSerializable(fieldRename: FieldRename.snake)
   const factory TwitchUserInfo(
     String id,
