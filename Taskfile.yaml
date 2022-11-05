@@ -7,3 +7,4 @@ tasks:
   run: dart lib/main.dart {{ .CLI_ARGS }}
   db:read: cat db.json | jq
   db:clear: rm db.json
+  gen: dart pub run build_runner build --delete-conflicting-outputs
