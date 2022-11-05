@@ -17,13 +17,13 @@ class ServeCommand extends Command {
         'host',
         abbr: 'a',
         help: 'The host to listen on',
-        defaultsTo: "127.0.0.1",
+        defaultsTo: "localhost",
       )
       ..addOption(
         'port',
         abbr: 'p',
         help: 'The port to listen on',
-        defaultsTo: '8080',
+        defaultsTo: '8000',
       );
   }
 
@@ -73,7 +73,7 @@ class ServeCommand extends Command {
 
       print('Client secret ${clientSecret.substring(5)}x');
 
-      final res = await http.post(Uri.parse(
+      final authTokenResponse = await http.post(Uri.parse(
         'https://id.twitch.tv/oauth2/token'
         '?client_id=$clientId'
         '&client_secret=$clientSecret'
@@ -81,19 +81,45 @@ class ServeCommand extends Command {
         '&grant_type=authorization_code'
         '&redirect_uri=$redirectUri',
       ));
-      final json = jsonDecode(res.body);
-      print(json);
-      final accessToken = json['access_token'];
+      final accessTokenJson = jsonDecode(authTokenResponse.body);
+      final accessToken = accessTokenJson['access_token'] as String?;
+      cliAssert(accessToken != null && accessToken.isNotEmpty,
+          "Did not receive an accessToken");
 
-      json['expires_on'] = DateTime.now()
-          .add(Duration(seconds: json['expires_in']))
+      accessTokenJson['expires_on'] = DateTime.now()
+          .add(Duration(seconds: accessTokenJson['expires_in']))
+          .subtract(Duration(minutes: 1))
           .toUtc()
           .toIso8601String();
 
-      db.twitchAccessTokens[accessToken] = json;
-      db.save();
+      final userInfoResponse = await http.get(
+        Uri.parse("https://api.twitch.tv/helix/users"),
+        headers: {
+          'Authorization': 'Bearer $accessToken',
+          'Client-Id': clientId,
+        },
+      );
 
-      print('Authenticating code $code for scope $scope and state $state');
+      final userInfoJson = jsonDecode(userInfoResponse.body)['data'].single;
+
+      cliAssert(userInfoJson != null && userInfoJson.isNotEmpty,
+          "Did not receive userInfo json");
+
+      final userId = userInfoJson['id'] as String;
+      final displayName = userInfoJson['display_name'] as String;
+
+      db.setState((db) {
+        db.twitchAccessTokens[userId] = accessTokenJson;
+        db.twitchUserInfo[userId] = userInfoJson;
+      });
+
+      print(
+        'Authenticating userId $userId, '
+        'displayName $displayName, '
+        'for scope $scope, '
+        'with code $code, '
+        'and state $state',
+      );
 
       return Response.ok('OK');
     });

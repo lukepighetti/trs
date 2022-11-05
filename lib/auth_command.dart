@@ -53,7 +53,7 @@ class _TwitchAuthCommand extends Command {
         "?client_id=$clientId"
         "&redirect_uri=$redirectUri"
         "&response_type=code"
-        "&scope=user:read:broadcast"
+        "&scope=user:read:email"
         "&state=$state";
     print('Click this link to authenticate $authUrl');
     // print("Trying to authenticate with client-id $clientId");

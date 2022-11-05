@@ -8,6 +8,10 @@ extension JsonDatabaseMaps on JsonDatabase {
   Map<String, dynamic> get twitchAccessTokens {
     return db['twitch-access-tokens'] ??= <String, dynamic>{};
   }
+
+  Map<String, dynamic> get twitchUserInfo {
+    return db['twitch-user-info'] ??= <String, dynamic>{};
+  }
 }
 
 class JsonDatabase with MapMixin<String, dynamic> {
@@ -23,21 +27,27 @@ class JsonDatabase with MapMixin<String, dynamic> {
     return jsonDecode(_file.readAsStringSync());
   }
 
+  // Update the store with new data
+  void setState(void Function(JsonDatabase store) db) {
+    db(this);
+    _save();
+  }
+
   @override
-  operator [](Object? key) {
-    _store[key];
+  dynamic operator [](Object? key) {
+    return _store[key];
   }
 
   @override
   void operator []=(String key, value) {
     _store[key] = value;
-    save();
+    _save();
   }
 
   @override
   void clear() {
     _store.clear();
-    save();
+    _save();
   }
 
   @override
@@ -46,10 +56,10 @@ class JsonDatabase with MapMixin<String, dynamic> {
   @override
   remove(Object? key) {
     _store.remove(key);
-    save();
+    _save();
   }
 
-  void save() {
+  void _save() {
     _file.writeAsStringSync(jsonEncode(_store));
   }
 }
