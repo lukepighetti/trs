@@ -13,8 +13,8 @@ import 'environment.dart';
 import 'extensions.dart';
 import 'utils.dart';
 
-part 'twitch_client.g.dart';
 part 'twitch_client.freezed.dart';
+part 'twitch_client.g.dart';
 
 Uri getAuthUri(String clientId, Uri redirectUri) {
   final state = Uuid(options: {'grng': UuidUtil.cryptoRNG}).v4();
@@ -82,10 +82,9 @@ Future<TwitchFinalizedAuth> postFinalizedAuth(String code) async {
 
   final userInfo = await getUserFromToken(accessToken.accessToken);
 
-  db.setState((db) {
-    db.twitchAccessTokens[userInfo.id] = accessToken;
-    db.twitchUserInfo[userInfo.id] = userInfo;
-  });
+  db.update((b) => b
+    ..twitchAccessToken[userInfo.id] = accessToken
+    ..twitchUserInfo[userInfo.id] = userInfo);
 
   return TwitchFinalizedAuth(accessToken, userInfo);
 }
@@ -136,9 +135,7 @@ Future<TwitchUserInfo> getUserFromToken(String accessToken) async {
   final json = jsonDecode(response.body)['data'].single;
   final userInfo = TwitchUserInfo.fromJson(json);
 
-  db.setState((db) {
-    db.twitchUserInfo[userInfo.id] = userInfo;
-  });
+  db.update((b) => b..twitchUserInfo[userInfo.id] = userInfo);
 
   return userInfo;
 }
